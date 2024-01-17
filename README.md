@@ -1,6 +1,7 @@
-# blank-css
+# modern-init-css
 
-Great blank css template for modern web development.
+Great initialized css template for modern web development.
+Leaves all the default browser styles intact, but adds some modern defaults.
 
 - Removed margin and paddings in the body element.
 - System font as default font.
