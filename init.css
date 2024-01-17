@@ -27,10 +27,6 @@ p {
     font-weight: 400;
 }
 
-label {
-    display: inline-block;
-}
-
 input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="submit"]):not([type="reset"]):not([type="button"]) {
     height: 40px;
     padding-left: .5em;
@@ -75,17 +71,4 @@ select {
     font-size: 16px;
     box-sizing: border-box;
     padding: 0 .5em;
-}
-
-a[disabled] {
-    pointer-events: none;
-    cursor: default;
-}
-
-dialog {
-    border: 1px solid;
-}
-
-dialog:active {
-    border: 1px solid;
 }
