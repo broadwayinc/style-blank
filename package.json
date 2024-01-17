@@ -1,0 +1,14 @@
+{
+  "name": "blank-css",
+  "version": "1.0.0",
+  "description": "Blank css template for modern web development.",
+  "main": "blank.css",
+  "scripts": {
+    "start": "node node_modules/basic-node-server/bns.js"
+  },
+  "author": "Baksa Gimm",
+  "license": "MIT",
+  "dependencies": {
+    "basic-node-server": "^1.0.6"
+  }
+}
