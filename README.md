@@ -1,6 +1,6 @@
 # modern-init-css
 
-Great initialized css template for modern web development.
+Initialized css template for modern web development.
 Leaves all the default browser styles intact, but adds some modern defaults.
 
 - Removed margin and paddings in the body element.
