@@ -1,6 +1,4 @@
-# modern-init-css
-
-Initialized CSS template for modern web development.
+# Initialized CSS template for modern web development
 
 - Removed margin and paddings in the body element.
 - System font as default font.
