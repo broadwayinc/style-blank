@@ -10,20 +10,6 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    line-height: calc(1em + 0.33rem);
-}
-
-p {
-    font-size: 1rem;
-    line-height: calc(1em + 0.33rem);
-}
-
 input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="submit"]):not([type="reset"]):not([type="button"]) {
     height: 40px;
     padding-left: .5em;
