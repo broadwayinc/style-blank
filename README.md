@@ -1,8 +1,8 @@
-# Modern Init CSS
+# Style Blank
 
-Modern Init CSS is a css initialization file that resets the default styles of html elements to make them more suitable to modern web design.
+Style Blank is a css initialization file that resets the default styles of html elements.
 
-It is focused to be unopinionated and minimalistic, it only resets the necessary styles to make the elements more consistent across browsers.
+It is focused to be unopinionated and minimalistic, it only resets the necessary styles to make your website suitable for modern web design.
 
 
 ## Import the CSS file from CDN

@@ -1,8 +1,8 @@
 {
-  "name": "modern-init-css",
-  "version": "1.0.8",
+  "name": "style-blank",
+  "version": "1.0.0",
   "description": "Initialized css template for modern web standard.",
-  "main": "init.css",
+  "main": "blank.css",
   "scripts": {
     "start": "node node_modules/basic-node-server/bns.js"
   },
