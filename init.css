@@ -1,9 +1,13 @@
+html {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-size: 18px;
+}
+
 body {
     min-height: 100vh;
     position: relative;
     padding: 0;
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -23,11 +27,16 @@ input[type="date"] {
 button,
 input[type="submit"],
 input[type="reset"],
+input::file-selector-button,
 input[type="button"] {
     height: 40px;
     padding: 0 .5em;
     font-size: 16px;
     box-sizing: border-box;
+}
+
+input::file-selector-button {
+    margin-right: .5em;
 }
 
 input[type="checkbox"],
@@ -43,7 +52,7 @@ textarea {
     min-height: 40px;
     font-size: 16px;
     box-sizing: border-box;
-    padding: .5em 0 0 .5em;
+    padding: .25em 0 0 .25em;
     resize: none;
     line-height: 1.33;
 }
@@ -52,5 +61,5 @@ select {
     min-height: 40px;
     font-size: 16px;
     box-sizing: border-box;
-    padding: 0 .5em;
+    padding: 0 .25em;
 }
