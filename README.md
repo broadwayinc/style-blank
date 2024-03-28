@@ -8,5 +8,5 @@ It is focused to be unopinionated and minimalistic, it only resets the necessary
 ## Import the CSS file from CDN
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/modern-init-css@latest/init.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/style-blank@latest/blank.css">
 ```
