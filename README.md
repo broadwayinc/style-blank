@@ -1,17 +1,9 @@
-## Initialized CSS template for modern web development
+# Modern Init CSS
 
-- Removed margin and paddings in the body element.
-- System font as default font.
-- Adjusted default font weights and line-heights to modern taste.
-  - Font weights:
-    - Text: 300,
-    - Paragraph: 400,
-    - Headings: 500
-  - Line heights:
-    - Paragraph: calc(1em + 0.33rem)
-    - Headings: calc(1em + 0.33rem)
-- Adjusted input, button, select, textarea sizes to modern display standards.
-- All other default browser styles are left intact.
+Modern Init CSS is a css initialization file that resets the default styles of html elements to make them more suitable to modern web design.
+
+It is focused to be unopinionated and minimalistic, it only resets the necessary styles to make the elements more consistent across browsers.
+
 
 ## Import the CSS file from CDN
 

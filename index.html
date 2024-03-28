@@ -1,95 +1,112 @@
 <!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<!DOCTYPE html>
-<html>
+<link rel="stylesheet" href="init.css">
 
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="init.css">
-</head>
+<h1>Modern Init CSS</h1>
 
-<body>
-    <header>
-        <h1>Header Content</h1>
-    </header>
+<hr>
 
-    <nav>
-        <ul>
-            <li>Navigation Item 1</li>
-            <li>Navigation Item 2</li>
-            <li>Navigation Item 3</li>
-        </ul>
-    </nav>
+<pre>
+Modern Init CSS is a css initialization file that resets the default styles of html elements to make them more suitable to modern web design.
 
-    <main>
-        <section>
-            <h2>Section Content</h2>
-            <p>Paragraph Content</p>
-        </section>
-        <h1>H1 Paragraph</h1>
-        <article>
-            <h2>Article Content</h2>
-            <h3>Article Content</h3>
-            <h4>Article Content</h4>
-            <h5>Article Content</h5>
-            <h6>Article Content</h6>
-            <p>Paragraph Content</p>
-            <small>Small Content</small>
-            <br>
-            Text Content
-        </article>
+It is focused to be unopinionated and minimalistic, it only resets the necessary styles to make the elements more consistent across browsers.
 
-        <div>
-            <style>
-                div {
-                    * {
-                        margin: 4px 0;
-                    }
-                }
-            </style>
-            <input type="text" id="name" name="name" value="John Doe" placeholder="Enter your name"><br>
-            <input type="email" id="email" name="email" value="johndoe@example.com" placeholder="Enter your email"><br>
-            <input type="password" id="password" name="password" placeholder="Enter your password"><br>
-            <input type="number" id="age" name="age" value="25" placeholder="Enter your age"><br>
-            <input type="date" id="dob" name="dob" value="1990-01-01" placeholder="Enter your date of birth"><br>
-            <input type="range"><br>
-            <div>
-                <input type="checkbox" id="chk" name="chk" checked>
-                <input type="radio" name="rdo" checked>
-                <input type="radio" name="rdo"><br>
-            </div>
-            <input type="submit"><br>
-            <input type="reset"><br>
 
-            <select id="country" name="country">
-                <option value="USA">United States</option>
-                <option value="UK">United Kingdom</option>
-                <option value="Canada">Canada</option>
-            </select><br>
+To import the css file, add the following line to the head of your html file:
 
-            <select id="country-multi" name="country" multiple>
-                <option value="USA">United States</option>
-                <option value="UK">United Kingdom</option>
-                <option value="Canada">Canada</option>
-            </select><br>
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/modern-init-css@latest/init.css"&gt;
 
-            <div class="textarea-grow">
-                <textarea id="message" name="message" placeholder="Enter your message"
-                    rows="4">Hello, world!</textarea><br>
-            </div>
-            <button>BUTTON!</button>
-        </div>
-    </main>
+<style>
+    pre {
+        white-space: pre-wrap;
+        font-size: 1rem;
+    }
+</style>
+</pre>
 
-    <footer>
-        <p>Footer Paragraph</p>
-    </footer>
-</body>
+<h1>Demo</h1>
+
+<hr>
+
+<header>
+    <h1>Header Content</h1>
+</header>
+
+<nav>
+    <ul>
+        <li>Navigation Item 1</li>
+        <li>Navigation Item 2</li>
+        <li>Navigation Item 3</li>
+    </ul>
+</nav>
+
+<section>
+    <h2>Section Content</h2>
+    <p>Paragraph Content</p>
+</section>
+<h1>H1 Paragraph</h1>
+<article>
+    <h2>Article Content</h2>
+    <h3>Article Content</h3>
+    <h4>Article Content</h4>
+    <h5>Article Content</h5>
+    <h6>Article Content</h6>
+    <p>Paragraph Content</p>
+    <small>Small Content</small>
+    <br>
+    Text Content
+</article>
+
+<div>
+    <style>
+        div {
+            * {
+                margin: 4px 0;
+            }
+        }
+    </style>
+    <input type="text" id="name" name="name" value="John Doe" placeholder="Enter your name"><br>
+    <input type="email" id="email" name="email" value="johndoe@example.com" placeholder="Enter your email"><br>
+    <input type="password" id="password" name="password" placeholder="Enter your password"><br>
+    <input type="number" id="age" name="age" value="25" placeholder="Enter your age"><br>
+    <input type="date" id="dob" name="dob" value="1990-01-01" placeholder="Enter your date of birth"><br>
+    <input type="range"><br>
+    <div>
+        <input type="checkbox" id="chk" name="chk" checked>
+        <input type="radio" name="rdo" checked>
+        <input type="radio" name="rdo"><br>
+    </div>
+    <input type="submit"><br>
+    <input type="reset"><br>
+
+    <select id="country" name="country">
+        <option value="USA">United States</option>
+        <option value="UK">United Kingdom</option>
+        <option value="Canada">Canada</option>
+    </select><br>
+
+    <select id="country-multi" name="country" multiple>
+        <option value="USA">United States</option>
+        <option value="UK">United Kingdom</option>
+        <option value="Canada">Canada</option>
+    </select><br>
+
+    <div class="textarea-grow">
+        <textarea id="message" name="message" placeholder="Enter your message" rows="4">Hello, world!</textarea><br>
+    </div>
+    <button>BUTTON!</button>
+</div>
+
+
+<footer>
+    <p>Footer Paragraph</p>
+</footer>
 
 </html>
 <style>
     body {
         margin: auto;
-        max-width: 480px;
+        padding: 8px;
+        max-width: 1000px;
     }
 </style>
