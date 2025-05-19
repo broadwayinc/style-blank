@@ -1,14 +1,14 @@
 {
   "name": "style-blank",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Initialized css template for modern web standard.",
   "main": "blank.css",
   "scripts": {
-    "start": "npx bns"
+    "start": "npx bns 3300"
   },
   "author": "Baksa Gimm",
   "license": "MIT",
   "dependencies": {
-    "basic-node-server": "^1.0.11"
+    "basic-node-server": "^1.0.16"
   }
 }
