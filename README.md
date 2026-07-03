@@ -160,13 +160,13 @@ select {
 ### Full-width fields inside a fieldset
 
 ```css
-fieldset > textarea,
-fieldset > input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="submit"]):not([type="reset"]):not([type="button"]) {
+fieldset textarea,
+fieldset input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="submit"]):not([type="reset"]):not([type="button"]) {
     width: 100%;
 }
 ```
 
-**`width: 100%` on direct-child text fields.** A `fieldset` is block-level by default, so it already spans the full width of its container. Stretching its direct-child text fields and textareas to `100%` makes them fill that width — a tidy column of equal-width fields instead of controls left at their own intrinsic widths. The `:not()` chain excludes checkbox, radio, file, submit, reset, and button (a full-width checkbox or submit would be undesirable; file inputs are handled separately). Combined with `border-box`, `100%` fills the fieldset exactly rather than overflowing. The child combinator (`>`) limits the blast radius to top-level fields, so inputs elsewhere — or nested inside a wrapper `div` — are untouched. A pragmatic auto-layout default, honestly a mild opinion rather than a normalization fix.
+**`width: 100%` on text fields within a fieldset.** A `fieldset` is block-level by default, so it already spans the full width of its container. Stretching the text fields and textareas inside it to `100%` makes them fill that width — a tidy column of equal-width fields instead of controls left at their own intrinsic widths. The `:not()` chain excludes checkbox, radio, file, submit, reset, and button (a full-width checkbox or submit would be undesirable; file inputs are handled separately). Combined with `border-box`, `100%` fills the fieldset exactly rather than overflowing. The descendant combinator (a space, not `>`) reaches text fields at any depth, so those nested inside a wrapper `div` inside the fieldset are stretched too — the scope is the whole fieldset subtree, not just its direct children. A pragmatic auto-layout default, honestly a mild opinion rather than a normalization fix.
 
 ### Progress bar
 
