@@ -4,11 +4,11 @@
   "description": "Initialized css template for modern web standard.",
   "main": "blank.css",
   "scripts": {
-    "start": "npx bns 3300"
+    "dev": "npx bns port=5174"
   },
   "author": "Baksa Gimm",
   "license": "MIT",
   "dependencies": {
-    "basic-node-server": "^1.0.16"
+    "basic-node-server": "^1.1.1"
   }
 }

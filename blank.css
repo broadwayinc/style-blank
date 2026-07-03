@@ -9,10 +9,14 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+fieldset > textarea, fieldset > input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="submit"]):not([type="reset"]):not([type="button"]) {
+    width: 100%;
+}
+
 input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="submit"]):not([type="reset"]):not([type="button"]) {
     height: 40px;
     padding-left: .25em;
-    font-size: 16px;
+    font-size: 0.8rem;
     box-sizing: border-box;
 }
 
@@ -27,7 +31,7 @@ input::file-selector-button,
 input[type="button"] {
     height: 40px;
     padding: 0 .5em;
-    font-size: 16px;
+    font-size: 0.8rem;
     box-sizing: border-box;
 }
 
@@ -45,16 +49,41 @@ input[type="radio"] {
 textarea {
     font-family: inherit;
     min-height: 40px;
-    font-size: 16px;
+    font-size: 0.8rem;
     box-sizing: border-box;
     padding: .25em 0 0 .25em;
-    resize: none;
     line-height: 1.33;
 }
 
 select {
     min-height: 40px;
-    font-size: 16px;
+    font-size: 0.8rem;
     box-sizing: border-box;
     padding: 0 .25em;
+}
+
+progress {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: none;
+    border-radius: 0;
+    height: 1rem;
+    background-color: #e0e0e0;
+    color: currentColor;
+}
+
+progress::-webkit-progress-bar {
+    background-color: #e0e0e0;
+    border-radius: 0;
+}
+
+progress::-webkit-progress-value {
+    background-color: currentColor;
+    border-radius: 0;
+}
+
+progress::-moz-progress-bar {
+    background-color: currentColor;
+    border-radius: 0;
 }
