@@ -171,7 +171,7 @@ select {
 
 ```css
 form > fieldset textarea,
-form > fieldset input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="submit"]):not([type="reset"]):not([type="button"]) {
+form > fieldset input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="submit"]):not([type="reset"]):not([type="date"]):not([type="button"]) {
     width: 100%;
 }
 
