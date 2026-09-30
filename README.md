@@ -18,8 +18,8 @@ Every rule in `blank.css` is here to fix a specific browser-default problem with
 
 A few conventions recur throughout:
 
-- **Sizes are in `rem`.** The root font-size is set once (see below), so `rem`-based control sizing is anchored to the document root and never compounds with nesting the way `em` would.
-- **`box-sizing: border-box`** is applied to sized controls so a declared `40px` or `100%` means exactly that, padding and border included.
+- **Type sizes use `rem`; control heights share a CSS variable.** The root font-size is set once (see below), so `rem`-based sizing is anchored to the document root and never compounds with nesting the way `em` would. The shared `--style-blank-input-height` custom property keeps controls at a consistent height.
+- **`box-sizing: border-box`** is applied to sized controls so a declared height or `100%` width includes padding and border.
 - **Nothing sets `appearance: none` except `progress`.** Native checkboxes, radios, selects, and buttons keep their OS rendering; only their box geometry is normalized.
 
 ### Root typography (`html`)
@@ -44,7 +44,17 @@ html {
 
 Its only opinion is the near-universal modern default of sans-serif over the browser's serif: zero network requests, no aesthetic of its own. Bootstrap 4 and GitHub popularized the general idea of a native system-font stack; this particular longer variant (with the Linux-desktop fonts and Droid Sans) is the version that spread through CSS-Tricks / WordPress write-ups, not the exact list those two projects shipped.
 
-**`font-size: 18px`.** This is not a cross-browser fix — the `16px` root default is consistent everywhere — but a plainly stated preference for a slightly larger, more readable baseline, and a single defined `rem` base so the rest of the sheet can size controls in `rem` (`1rem` = 18px, `0.8rem` = 14.4px). One honest caveat: because it is an absolute `px` value, it overrides a user's configured default browser font-size preference. Page/browser zoom is unaffected and still works normally, so the impact is limited, but a strictly preference-respecting reset would express this as a percentage instead.
+**`font-size: 18px`.** This is not a cross-browser fix — the `16px` root default is consistent everywhere — but an intentional adjustment for a slightly larger, more readable baseline on modern screens. It also defines the `rem` base used for control text (`1rem` = 18px, `0.8rem` = 14.4px). The 18px text baseline and 40px control height are usability choices, not responsive measurements: they remain fixed in CSS pixels rather than adapting to a device's physical screen size or pixel density. Because this is an absolute `px` value, it overrides a user's configured default browser font-size preference. Page/browser zoom is unaffected; a strictly preference-respecting reset would express this as a percentage instead.
+
+### Shared control height
+
+```css
+body {
+    --style-blank-input-height: 40px;
+}
+```
+
+**`--style-blank-input-height`.** This custom property centralizes the 40px height used by single-line inputs and buttons, and the minimum height used by textareas and selects. Keeping the value in one place makes the controls consistent and easy to adjust together. The 40px baseline is an intentional usability choice for modern screens and comfortable control targets, rather than a browser-normalization fix; it is a fixed CSS-pixel value, not a size that changes with the device.
 
 ### Text rendering (`body`)
 
@@ -64,7 +74,7 @@ body {
 
 ```css
 input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="submit"]):not([type="reset"]):not([type="button"]) {
-    height: 40px;
+    height: var(--style-blank-input-height);
     padding-left: .25em;
     font-size: 0.8rem;
     box-sizing: border-box;
@@ -79,10 +89,10 @@ input[type="date"] {
 
 Honest trade-off: the blocklist is broad, not surgical. It also matches `range` and `color` (which harmlessly inherit the sizing), the other date/time types (`datetime-local`, `month`, `week`), `hidden` (inert, since it is `display: none`), and `image` — a button-like image-submit control that no other rule owns yet still receives text-field sizing here. So it is future-proof and minimal, but does not carve out *precisely* the inputs owned by other rules.
 
-- **`height: 40px`** — a UA input's height is computed from font-size, line-height, intrinsic padding, and border, so it drifts across browsers, fonts, and OSes. Pinning `40px` makes every text input match the buttons, `select`, and `textarea` defined elsewhere, so a form's controls sit on one grid. Single-line inputs never need to grow, so a hard `height` (rather than the `min-height` used for the resizable `textarea`/`select`) is safe. The number itself is a pragmatic, roughly touch-sized pick — the only imposed opinion is *make them consistent*.
+- **`height: var(--style-blank-input-height)`** — the custom property resolves to `40px`. A UA input's height is computed from font-size, line-height, intrinsic padding, and border, so it drifts across browsers, fonts, and OSes. Sharing this value with buttons and the minimum heights of `select` and `textarea` keeps controls on one grid. Single-line inputs never need to grow, so a hard `height` (rather than `min-height`) is appropriate. The 40px value is a deliberate modern-screen usability choice, not a browser default.
 - **`padding-left: .25em`** — keeps text and caret off the left border and evens out the differing small insets UA stylesheets apply. Only the left side is set (not the shorthand) so vertical placement is left to the fixed height's centering and it composes cleanly with the `date` rule below. `.25em` scales with the control's own font-size.
 - **`font-size: 0.8rem`** — controls do **not** inherit font-size from the page; left alone they fall back to a UA control size (e.g. Chromium's ~13.33px) that varies by browser. `rem` anchors it to the root regardless of nesting. Note this sets *only* size, not family, so text inputs still render in the UA control font (unlike `textarea`, below) — a deliberately light, size-only touch.
-- **`box-sizing: border-box`** — under the default `content-box`, `height: 40px` would size only the content box and the UA border (plus any UA vertical padding) would push the rendered box past 40px, while `width: 100%` from the fieldset rule would overflow once padding is added. `border-box` makes `40px` mean 40px and `100%` mean the container width. This corrects measurement, not looks.
+- **`box-sizing: border-box`** — under the default `content-box`, the declared height would size only the content box and the UA border (plus any UA vertical padding) would push the rendered box past the shared 40px height, while `width: 100%` from the fieldset rule would overflow once padding is added. `border-box` makes the shared height mean 40px and `100%` mean the container width. This corrects measurement, not looks.
 - **`input[type="date"] { padding-right: .5em }`** — date inputs carry a browser-supplied calendar-picker indicator flush against the right edge; without right padding it looks cramped. `.5em` (double the `.25em` left inset — intentionally larger, to clear the widget) gives it room, done minimally rather than by restyling the indicator pseudo-element. Note that `date` is simply the type this rule chooses to pad, not the only text-like input with built-in widgets — `number`/`time` have spin buttons, `search` has a clear button, and the other date/time types have their own pickers.
 
 ### Buttons & the file-selector button
@@ -93,7 +103,7 @@ input[type="submit"],
 input[type="reset"],
 input::file-selector-button,
 input[type="button"] {
-    height: 40px;
+    height: var(--style-blank-input-height);
     padding: 0 .5em;
     font-size: 0.8rem;
     box-sizing: border-box;
@@ -104,9 +114,9 @@ input::file-selector-button {
 }
 ```
 
-**Why group them.** `<button>` (whatever its `type`), the three button-type inputs, and the file input's button each carry their own native chrome and intrinsic sizing, so left alone they render at different heights from each other and from text inputs. Collecting them into one rule and sharing `height: 40px`, `font-size: 0.8rem`, and `box-sizing: border-box` with the text-input rule makes buttons line up with text fields. The alignment holds because both use a fixed `40px` height with `border-box` — the padding actually differs (`padding: 0 .5em` here vs. `padding-left: .25em` on inputs), but `border-box` absorbs it inside the box so the outer height is unchanged. It stays unopinionated by normalizing only geometry and text size: background, border, and color are untouched, so the native button look survives.
+**Why group them.** `<button>` (whatever its `type`), the three button-type inputs, and the file input's button each carry their own native chrome and intrinsic sizing, so left alone they render at different heights from each other and from text inputs. Collecting them into one rule and sharing `height: var(--style-blank-input-height)`, `font-size: 0.8rem`, and `box-sizing: border-box` with the text-input rule makes buttons line up with text fields. The shared height resolves to `40px`; the padding differs (`padding: 0 .5em` here vs. `padding-left: .25em` on inputs), but `border-box` absorbs it inside the box so the outer height is unchanged. It stays unopinionated by normalizing only geometry and text size: background, border, and color are untouched, so the native button look survives.
 
-- **`padding: 0 .5em`** — vertical padding is zeroed on purpose: height is already fixed at `40px` with `border-box`, so any vertical padding would just eat into the box and shift the label. The `.5em` horizontal padding (relative to the `0.8rem` font-size) keeps the label off the edges.
+- **`padding: 0 .5em`** — vertical padding is zeroed on purpose: height is already set by the shared 40px custom property with `border-box`, so any vertical padding would just eat into the box and shift the label. The `.5em` horizontal padding (relative to the `0.8rem` font-size) keeps the label off the edges.
 - **`font-size: 0.8rem`** — matches the inputs, textareas, and selects so all control labels are the same size; `rem` ties it to the root. Only size is set, not family, so button labels stay in the UA control font — an intentionally minimal touch.
 - **`input::file-selector-button`** — targets the clickable "Choose File" segment of `<input type="file">` (the reason `file` is excluded from the text-input rule). It is the standardized selector (modern Chrome/Edge, Firefox, Safari), superseding the WebKit-only `::-webkit-file-upload-button`. Styling it through the shared block gives the file input's button the same 40px geometry as every other button.
 - **`margin-right: .5em`** — separates that button from the adjacent "No file chosen" filename text, whose default gap varies by browser, for a consistent readable space.
@@ -132,7 +142,7 @@ input[type="radio"] {
 ```css
 textarea {
     font-family: inherit;
-    min-height: 40px;
+    min-height: var(--style-blank-input-height);
     font-size: 0.8rem;
     box-sizing: border-box;
     padding: .25em 0 0 .25em;
@@ -140,7 +150,7 @@ textarea {
 }
 
 select {
-    min-height: 40px;
+    min-height: var(--style-blank-input-height);
     font-size: 0.8rem;
     box-sizing: border-box;
     padding: 0 .25em;
@@ -149,24 +159,30 @@ select {
 
 **`textarea { font-family: inherit }`.** Form controls do not inherit `font-family` from the page — the UA gives them their own control font — so an untouched `textarea` clashes with body text, the same way inputs and selects do. `inherit` re-attaches it to the document font (ultimately the system stack on `html`), imposing no new font of its own. This is applied only to `textarea`; input and select here are left on their UA font family, so the normalization is not fully consistent, but `textarea` is where the mismatch is most jarring in multi-line editable text.
 
-**`min-height: 40px` (not `height`) on both `textarea` and `select`.** `40px` matches the other controls so a collapsed `textarea` or single-line `select` lines up with them. `min-height` sets a floor while preserving native multi-row behavior: a `textarea` can be user-resized via its default `resize` handle (and its initial height set by the `rows` attribute), and a `<select multiple>` or `size`d select renders several rows. A fixed `height` would constrain those; and a too-short fixed `textarea` height would scroll rather than clip, but `min-height` avoids the issue entirely.
+**`min-height: var(--style-blank-input-height)` (not `height`) on both `textarea` and `select`.** The shared property resolves to `40px`, matching the other controls so a collapsed `textarea` or single-line `select` lines up with them. `min-height` sets a floor while preserving native multi-row behavior: a `textarea` can be user-resized via its default `resize` handle (and its initial height set by the `rows` attribute), and a `<select multiple>` or `size`d select renders several rows. A fixed `height` would constrain those; `min-height` preserves their natural ability to grow.
 
 - **`textarea { padding: .25em 0 0 .25em }`** — a modest top+left inset (right and bottom `0`). The left `.25em` mirrors the inputs' `padding-left` so the caret sits at the same rhythm; the top nudges the first line off the border. A low-opinion breathing-room choice, not a browser fix.
 - **`textarea { line-height: 1.33 }`** — matters because a `textarea` is multi-line. The UA default is `normal` (~1.2), which can feel cramped for editing; `1.33` loosens it slightly. A mild legibility judgment, kept modest.
 - **`select { padding: 0 .25em }`** — horizontal inset keeps the selected option text and native dropdown arrow off the edges and matches the other controls' rhythm; vertical padding is `0` because `min-height` plus native centering already place the text.
 - **`font-size: 0.8rem`** on both — the same value used on inputs and buttons, so all control text is uniform. `rem` (not `em`) anchors it to the root and avoids compounding with nesting.
-- **`box-sizing: border-box`** on both — both carry padding and a native border, and a `textarea` can be stretched to `width: 100%` in a fieldset. `border-box` folds padding and border into the stated dimensions so `40px` and `100%` mean exactly that, rather than overflowing.
+- **`box-sizing: border-box`** on both — both carry padding and a native border, and a `textarea` can be stretched to `width: 100%` in a fieldset. `border-box` folds padding and border into the stated dimensions so the shared 40px minimum and `100%` width mean exactly that, rather than overflowing.
 
 ### Full-width fields inside a fieldset
 
 ```css
-fieldset textarea,
-fieldset input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="submit"]):not([type="reset"]):not([type="button"]) {
+form > fieldset textarea,
+form > fieldset input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="submit"]):not([type="reset"]):not([type="button"]) {
     width: 100%;
+}
+
+form > fieldset {
+    display: inline-block;
 }
 ```
 
-**`width: 100%` on text fields within a fieldset.** A `fieldset` is block-level by default, so it already spans the full width of its container. Stretching the text fields and textareas inside it to `100%` makes them fill that width — a tidy column of equal-width fields instead of controls left at their own intrinsic widths. The `:not()` chain excludes checkbox, radio, file, submit, reset, and button (a full-width checkbox or submit would be undesirable; file inputs are handled separately). Combined with `border-box`, `100%` fills the fieldset exactly rather than overflowing. The descendant combinator (a space, not `>`) reaches text fields at any depth, so those nested inside a wrapper `div` inside the fieldset are stretched too — the scope is the whole fieldset subtree, not just its direct children. A pragmatic auto-layout default, honestly a mild opinion rather than a normalization fix.
+**`width: 100%` on text fields within a form's direct fieldset.** The child combinator (`>`) limits this rule to fieldsets that are direct children of a form; the descendant combinator (a space) then reaches text fields and textareas anywhere inside that fieldset, including those nested in a wrapper. Stretching those controls to `100%` makes them fill the fieldset's width. The `:not()` chain excludes checkbox, radio, file, submit, reset, and button. Combined with `border-box`, `100%` fills the available width rather than overflowing.
+
+**`display: inline-block` on the fieldset.** Browsers render a fieldset as a block by default. This rule overrides that layout for direct fieldsets inside forms, so the fieldset takes the width its contents require and can sit alongside other inline-level content. It does not change the element's HTML meaning, and `inline-block` alone does not guarantee that the fieldset starts on a new line. Add a `<br>` before it or place it in a block wrapper when a line break is required.
 
 ### Progress bar
 
