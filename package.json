@@ -1,6 +1,6 @@
 {
   "name": "style-blank",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "Initialized css template for modern web standard.",
   "main": "blank.css",
   "scripts": {

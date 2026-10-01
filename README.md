@@ -222,18 +222,13 @@ td {
 th {
     background-color: #f2f2f2;
 }
-
-tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
 ```
 
-Default table borders differ across browsers (`border-spacing`, double borders between cells) and unstyled tables are easy to misread once they grow wide, so this section gives tables a visible grid, a readable header, and a zebra pattern — without picking a brand color.
+Default table borders differ across browsers (`border-spacing`, double borders between cells) and unstyled tables are easy to misread once they grow wide, so this section gives tables a visible grid and a readable header — without picking a brand color.
 
 - **`min-width: 100%; width: max-content`** — a table should at least fill its parent's width, but a wide table with many columns should be free to grow past that rather than being squeezed and wrapped. `min-width: 100%` sets the floor; `width: max-content` lets the table expand to fit its content when the content is wider than the parent.
 - **`border-collapse: collapse`** — the UA default, `separate`, draws a gap between adjacent cell borders (and doubles them visually). `collapse` merges adjacent borders into a single line, which is the more common, readable expectation for a data table.
 - **`th, td { border: 1px solid #d0d0d0 }`** — gives every cell a visible, consistent light-gray grid line; without it, bare tables have no borders at all in most browsers.
 - **`th, td { padding: .5em .75em; text-align: left }`** — UA default cell padding is inconsistent and often too tight; the padding here is sized relative to the cell's own font. `text-align: left` overrides the UA default of centered `<th>` text so headers line up with left-aligned body text.
 - **`th { background-color: #f2f2f2 }`** combined with `font-weight: bold` already applied by the UA default — gives the header row a distinct, neutral band so it reads as a header at a glance, without imposing a brand color.
-- **`tbody tr:nth-child(even) { background-color: #f2f2f2 }`** — a light zebra stripe on alternating body rows makes wide, dense tables easier to scan across. Scoped to `tbody` so the striping does not also apply inside `thead` or `tfoot`.
 
