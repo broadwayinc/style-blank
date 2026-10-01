@@ -38,8 +38,8 @@ input::file-selector-button {
 
 input[type="checkbox"],
 input[type="radio"] {
-    width: 1rem;
-    height: 1rem;
+    width: 1em;
+    height: 1em;
     vertical-align: baseline;
 }
 

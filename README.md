@@ -121,16 +121,16 @@ input::file-selector-button {
 ```css
 input[type="checkbox"],
 input[type="radio"] {
-    width: 1rem;
-    height: 1rem;
+    width: 1em;
+    height: 1em;
     vertical-align: baseline;
 }
 ```
 
 **A dedicated rule.** Checkboxes and radios are fixed-shape toggles, not text-holding boxes, so the `40px` height, horizontal padding, and `0.8rem` sizing applied elsewhere would be meaningless on them. They get their own block and are kept out of the others — the text-input rule (and the fieldset width rule) exclude them via `:not()` chains, while the button rule simply never lists them — so this is the only place they are sized. Crucially the rule sets only box size and alignment; it does **not** set `appearance: none`, so the native check glyph, dot, focus ring, and `accent-color` stay intact.
 
-- **`width: 1rem; height: 1rem`** — the native rendered size (historically ~13px, but it varies by browser/OS/theme and does not reliably track text) is normalized to a fixed square. `rem` ties it to the base font-size so it scales with the type scale rather than freezing at an absolute pixel count. Note this normalizes only the **bounding box**; because `appearance: none` is not set, the widget's actual drawing is still native and differs across browsers. At the `18px` root, `1rem` is 18px — a clean, predictable value noticeably larger than the ~13px native default, not a close match to it.
-- **`vertical-align: baseline`** — a deliberate recent change (the previous rule used `vertical-align: text-top` with `margin: 2px`). `baseline` is the CSS initial value of `vertical-align`, so stating it explicitly is the most unopinionated choice: it asserts the browser's natural alignment and overrides any *other cascaded* `vertical-align` on the element. (The property does not inherit, so there is no parent value to guard against.) The old `text-top` pushed the control up toward the font's ascent, making it sit high next to label text; `baseline` restores normal inline alignment. Dropping `margin: 2px` in the same change makes the footprint exactly the `1rem` square, leaving any gap to its label as an author decision.
+- **`width: 1em; height: 1em`** — sets the checkbox and radio to a fixed square relative to each control's computed font size, so their dimensions scale with the control text size. Note this normalizes only the **bounding box**; because `appearance: none` is not set, the widget's actual drawing is still native and differs across browsers.
+- **`vertical-align: baseline`** — a deliberate recent change (the previous rule used `vertical-align: text-top` with `margin: 2px`). `baseline` is the CSS initial value of `vertical-align`, so stating it explicitly is the most unopinionated choice: it asserts the browser's natural alignment and overrides any *other cascaded* `vertical-align` on the element. (The property does not inherit, so there is no parent value to guard against.) The old `text-top` pushed the control up toward the font's ascent, making it sit high next to label text; `baseline` restores normal inline alignment. Dropping `margin: 2px` in the same change makes the footprint exactly the `1em` square, leaving any gap to its label as an author decision.
 
 ### Textarea & select
 
@@ -199,7 +199,7 @@ progress::-moz-progress-bar      { background-color: currentColor; border-radius
 **`appearance: none` (+ prefixes).** In WebKit/Blink this is a strict prerequisite: `::-webkit-progress-bar` / `::-webkit-progress-value` styles are only honored once native appearance is disabled. All three spellings are listed because the unprefixed `appearance` is the modern standard while the vendor prefixes cover older engines. In Firefox it is *not* a prerequisite — the element's background and `::-moz-progress-bar` can be colored without it — so there it mainly strips the residual native bevel and border (further removed by `border: none`).
 
 - **`border: none; border-radius: 0`** — browsers historically draw a bevel and rounded ends (Firefox especially). Flattening to a plain rectangle is the least-decorated, most predictable baseline; it removes decoration rather than substituting a new look.
-- **`height: 1rem`** — native heights vary across browsers; pinning removes that. At the `18px` root, `1rem` (18px) ties the bar to the type scale and matches the checkbox/radio sizing.
+- **`height: 1rem`** — native heights vary across browsers; pinning removes that. At the `18px` root, `1rem` (18px) ties the bar to the type scale.
 - **`background-color: #e0e0e0`** (element and `::-webkit-progress-bar`) — the unfilled **track** color, declared in both places so it matches across engines (Firefox reads the element background; WebKit reads the pseudo-element). `#e0e0e0` is the one frankly aesthetic choice here: a neutral light gray rather than any brand color, since a track has to be *some* visible color. Honest limitation: it is a fixed light value and does not adapt to dark backgrounds.
 - **`color: currentColor`** and **`background-color: currentColor`** on the fills — the **fill** adopts the surrounding text color instead of a hardcoded accent, so the bar inherits whatever color the site already uses. Setting `color: currentColor` on the element is essentially a documented no-op (since `color` inherits anyway); it makes the intent explicit — no imposed hue, the core unopinionated move.
 
