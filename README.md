@@ -79,21 +79,16 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="s
     font-size: 0.8rem;
     box-sizing: border-box;
 }
-
-input[type="date"] {
-    padding-right: .5em;
-}
 ```
 
 **The `:not()` exclusion strategy.** There is no positive selector for "text-like input," so the rule uses a blocklist rather than enumerating `text`, `email`, `password`, and so on. This is deliberate: an `<input>` with no `type` attribute renders as `type="text"`, but `input[type="text"]` matches only the *literal* attribute and would miss a bare `<input>`. The `:not()` chain catches it — and any future text-like type — automatically. The excluded types are the ones other rules own: checkbox/radio get square sizing, `file` is styled through `::file-selector-button`, and submit/reset/button join the button group.
 
-Honest trade-off: the blocklist is broad, not surgical. It also matches `range` and `color` (which harmlessly inherit the sizing), the other date/time types (`datetime-local`, `month`, `week`), `hidden` (inert, since it is `display: none`), and `image` — a button-like image-submit control that no other rule owns yet still receives text-field sizing here. So it is future-proof and minimal, but does not carve out *precisely* the inputs owned by other rules.
+Honest trade-off: the blocklist is broad, not surgical. It also matches `range` and `color` (which harmlessly inherit the sizing), the date/time types (`date`, `datetime-local`, `month`, `week`), `hidden` (inert, since it is `display: none`), and `image` — a button-like image-submit control that no other rule owns yet still receives text-field sizing here. So it is future-proof and minimal, but does not carve out *precisely* the inputs owned by other rules.
 
 - **`height: var(--style-blank-input-height)`** — the custom property resolves to `40px`. A UA input's height is computed from font-size, line-height, intrinsic padding, and border, so it drifts across browsers, fonts, and OSes. Sharing this value with buttons and the minimum heights of `select` and `textarea` keeps controls on one grid. Single-line inputs never need to grow, so a hard `height` (rather than `min-height`) is appropriate. The 40px value is a deliberate modern-screen usability choice, not a browser default.
-- **`padding-left: .25em`** — keeps text and caret off the left border and evens out the differing small insets UA stylesheets apply. Only the left side is set (not the shorthand) so vertical placement is left to the fixed height's centering and it composes cleanly with the `date` rule below. `.25em` scales with the control's own font-size.
+- **`padding-left: .25em`** — keeps text and caret off the left border and evens out the differing small insets UA stylesheets apply. Only the left side is set (not the shorthand) so vertical placement is left to the fixed height's centering. `.25em` scales with the control's own font-size.
 - **`font-size: 0.8rem`** — controls do **not** inherit font-size from the page; left alone they fall back to a UA control size (e.g. Chromium's ~13.33px) that varies by browser. `rem` anchors it to the root regardless of nesting. Note this sets *only* size, not family, so text inputs still render in the UA control font (unlike `textarea`, below) — a deliberately light, size-only touch.
 - **`box-sizing: border-box`** — under the default `content-box`, the declared height would size only the content box and the UA border (plus any UA vertical padding) would push the rendered box past the shared 40px height, while `width: 100%` from the fieldset rule would overflow once padding is added. `border-box` makes the shared height mean 40px and `100%` mean the container width. This corrects measurement, not looks.
-- **`input[type="date"] { padding-right: .5em }`** — date inputs carry a browser-supplied calendar-picker indicator flush against the right edge; without right padding it looks cramped. `.5em` (double the `.25em` left inset — intentionally larger, to clear the widget) gives it room, done minimally rather than by restyling the indicator pseudo-element. Note that `date` is simply the type this rule chooses to pad, not the only text-like input with built-in widgets — `number`/`time` have spin buttons, `search` has a clear button, and the other date/time types have their own pickers.
 
 ### Buttons & the file-selector button
 
@@ -174,15 +169,9 @@ form > fieldset textarea,
 form > fieldset input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="submit"]):not([type="reset"]):not([type="date"]):not([type="button"]) {
     width: 100%;
 }
-
-form > fieldset {
-    display: inline-block;
-}
 ```
 
 **`width: 100%` on text fields within a form's direct fieldset.** The child combinator (`>`) limits this rule to fieldsets that are direct children of a form; the descendant combinator (a space) then reaches text fields and textareas anywhere inside that fieldset, including those nested in a wrapper. Stretching those controls to `100%` makes them fill the fieldset's width. The `:not()` chain excludes checkbox, radio, file, submit, reset, and button. Combined with `border-box`, `100%` fills the available width rather than overflowing.
-
-**`display: inline-block` on the fieldset.** Browsers render a fieldset as a block by default. This rule overrides that layout for direct fieldsets inside forms, so the fieldset takes the width its contents require and can sit alongside other inline-level content. It does not change the element's HTML meaning, and `inline-block` alone does not guarantee that the fieldset starts on a new line. Add a `<br>` before it or place it in a block wrapper when a line break is required.
 
 ### Progress bar
 
@@ -213,3 +202,38 @@ progress::-moz-progress-bar      { background-color: currentColor; border-radius
 - **`height: 1rem`** — native heights vary across browsers; pinning removes that. At the `18px` root, `1rem` (18px) ties the bar to the type scale and matches the checkbox/radio sizing.
 - **`background-color: #e0e0e0`** (element and `::-webkit-progress-bar`) — the unfilled **track** color, declared in both places so it matches across engines (Firefox reads the element background; WebKit reads the pseudo-element). `#e0e0e0` is the one frankly aesthetic choice here: a neutral light gray rather than any brand color, since a track has to be *some* visible color. Honest limitation: it is a fixed light value and does not adapt to dark backgrounds.
 - **`color: currentColor`** and **`background-color: currentColor`** on the fills — the **fill** adopts the surrounding text color instead of a hardcoded accent, so the bar inherits whatever color the site already uses. Setting `color: currentColor` on the element is essentially a documented no-op (since `color` inherits anyway); it makes the intent explicit — no imposed hue, the core unopinionated move.
+
+### Tables
+
+```css
+table {
+    min-width: 100%;
+    width: max-content;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid #d0d0d0;
+    padding: .5em .75em;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+```
+
+Default table borders differ across browsers (`border-spacing`, double borders between cells) and unstyled tables are easy to misread once they grow wide, so this section gives tables a visible grid, a readable header, and a zebra pattern — without picking a brand color.
+
+- **`min-width: 100%; width: max-content`** — a table should at least fill its parent's width, but a wide table with many columns should be free to grow past that rather than being squeezed and wrapped. `min-width: 100%` sets the floor; `width: max-content` lets the table expand to fit its content when the content is wider than the parent.
+- **`border-collapse: collapse`** — the UA default, `separate`, draws a gap between adjacent cell borders (and doubles them visually). `collapse` merges adjacent borders into a single line, which is the more common, readable expectation for a data table.
+- **`th, td { border: 1px solid #d0d0d0 }`** — gives every cell a visible, consistent light-gray grid line; without it, bare tables have no borders at all in most browsers.
+- **`th, td { padding: .5em .75em; text-align: left }`** — UA default cell padding is inconsistent and often too tight; the padding here is sized relative to the cell's own font. `text-align: left` overrides the UA default of centered `<th>` text so headers line up with left-aligned body text.
+- **`th { background-color: #f2f2f2 }`** combined with `font-weight: bold` already applied by the UA default — gives the header row a distinct, neutral band so it reads as a header at a glance, without imposing a brand color.
+- **`tbody tr:nth-child(even) { background-color: #f2f2f2 }`** — a light zebra stripe on alternating body rows makes wide, dense tables easier to scan across. Scoped to `tbody` so the striping does not also apply inside `thead` or `tfoot`.
+

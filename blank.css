@@ -14,10 +14,6 @@ form > fieldset textarea, form > fieldset input:not([type="checkbox"]):not([type
     width: 100%;
 }
 
-form > fieldset {
-    display: inline-block;   
-}
-
 input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="submit"]):not([type="reset"]):not([type="button"]) {
     height: var(--style-blank-input-height);
     padding-left: .25em;
@@ -87,4 +83,25 @@ progress::-webkit-progress-value {
 progress::-moz-progress-bar {
     background-color: currentColor;
     border-radius: 0;
+}
+
+table {
+    min-width: 100%;
+    width: max-content;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid #d0d0d0;
+    padding: .5em .75em;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
 }
