@@ -129,6 +129,7 @@ To import the css file, add the following line to the head of your html file:
                 <option value="USA">United States</option>
                 <option value="UK">United Kingdom</option>
                 <option value="Canada">Canada</option>
+                <option value="Australia">Very Long Option Text That Exceeds Normal Length And Continues Further</option>
             </select><br>
     
             <select id="country-multi" name="country" multiple>
@@ -143,65 +144,64 @@ To import the css file, add the following line to the head of your html file:
     </form>
 </div>
 
-<br>
-
-<table>
-    <caption>Table Example</caption>
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>johndoe@example.com</td>
-            <td>Administrator</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Jane Smith</td>
-            <td>janesmith@example.com</td>
-            <td>Editor</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Bob Johnson</td>
-            <td>bobjohnson@example.com</td>
-            <td>Viewer</td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>Alice Williams</td>
-            <td>alicewilliams@example.com</td>
-            <td>Editor</td>
-        </tr>
-    </tbody>
-</table>
-
-<br>
-
-<table>
-    <caption>Table Example with Side Headers</caption>
-    <tbody>
-        <tr>
-            <th scope="row">Name</th>
-            <td>John Doe</td>
-        </tr>
-        <tr>
-            <th scope="row">Email</th>
-            <td>johndoe@example.com</td>
-        </tr>
-        <tr>
-            <th scope="row">Role</th>
-            <td>Administrator</td>
-        </tr>
-    </tbody>
-</table>
+<div style='max-width: 100%;overflow-x: auto;'>
+    <table>
+        <caption>Scrollable Table Example</caption>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>John Doe</td>
+                <td>johndoe@example.com</td>
+                <td>Administrator</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Jane Smith</td>
+                <td>janesmith@example.com</td>
+                <td>Editor</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Bob Johnson</td>
+                <td>bobjohnson@example.com</td>
+                <td>Viewer</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Alice Williams</td>
+                <td>alicewilliams@example.com</td>
+                <td>Editor</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div style='max-width: 100%;overflow-x: auto;'>
+    <table>
+        <caption>Table Example with Side Headers</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Name</th>
+                <td>John Doe</td>
+            </tr>
+            <tr>
+                <th scope="row">Email</th>
+                <td>johndoe@example.com</td>
+            </tr>
+            <tr>
+                <th scope="row">Role</th>
+                <td>Administrator</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 <footer>
     <p>Footer Paragraph</p>
@@ -212,6 +212,7 @@ To import the css file, add the following line to the head of your html file:
         margin: auto;
         padding: 8px;
         width: 800px;
+        box-sizing: border-box;
         max-width: 100%;
     }
 </style>

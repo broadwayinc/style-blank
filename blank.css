@@ -10,7 +10,7 @@ body {
     --style-blank-input-height: 40px;
 }
 
-form > fieldset textarea, form > fieldset input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="submit"]):not([type="reset"]):not([type="date"]):not([type="button"]) {
+form > fieldset select, form > fieldset textarea, form > fieldset input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="submit"]):not([type="reset"]):not([type="date"]):not([type="button"]) {
     width: 100%;
 }
 
@@ -53,10 +53,21 @@ textarea {
 }
 
 select {
+    max-width: 100%;
+    overflow: hidden;
     min-height: var(--style-blank-input-height);
     font-size: 0.8rem;
     box-sizing: border-box;
     padding: 0 .25em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+option {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 progress {
